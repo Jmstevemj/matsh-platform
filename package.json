@@ -8,10 +8,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "better-react-mathjax": "^2.1.0",
     "mathjax": "^3.2.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-mathjax-preview": "^2.2.6"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
