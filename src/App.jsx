@@ -1,7 +1,6 @@
-
 import React from "react";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 import "./index.css";
-import MathJax from "react-mathjax-preview";
 
 const lessons = {
   "ОГЭ": [
@@ -74,43 +73,49 @@ $a_1 = 5, d = 3 \Rightarrow a_{10} = 5 + 9\cdot3 = 32$
 
 const App = () => {
   return (
-    <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold text-cyan-600 mb-6">МатШтат: Онлайн-платформа</h1>
-      {Object.entries(lessons).map(([direction, topics]) => (
-        <div key={direction} className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Направление: {direction}</h2>
-          <div className="space-y-6">
-            {topics.map(({ title, video, summary, hw }) => (
-              <div
-                key={title}
-                className="rounded-2xl border border-gray-200 shadow p-4 bg-white"
-              >
-                <h3 className="text-xl font-semibold text-cyan-700 mb-2">{title}</h3>
-                <div className="aspect-video mb-4">
-                  <iframe
-                    className="w-full h-full rounded-xl"
-                    src={video}
-                    title={title}
-                    allowFullScreen
-                  ></iframe>
-                </div>
-                <div className="prose max-w-none text-gray-800 mb-4">
-                  <MathJax math={summary} />
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Домашка:</h4>
-                  <ul className="list-disc list-inside text-gray-700">
-                    {hw.map((task, idx) => (
-                      <li key={idx}>{task}</li>
+    <MathJaxContext>
+      <div className="p-6 max-w-5xl mx-auto">
+        <h1 className="text-3xl font-bold text-cyan-600 mb-6">МатШтат: Онлайн-платформа</h1>
+        {Object.entries(lessons).map(([direction, topics]) => (
+          <div key={direction} className="mb-8">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Направление: {direction}</h2>
+            <div className="space-y-6">
+              {topics.map(({ title, video, summary, hw }) => (
+                <div
+                  key={title}
+                  className="rounded-2xl border border-gray-200 shadow p-4 bg-white"
+                >
+                  <h3 className="text-xl font-semibold text-cyan-700 mb-2">{title}</h3>
+                  <div className="aspect-video mb-4">
+                    <iframe
+                      className="w-full h-full rounded-xl"
+                      src={video}
+                      title={title}
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  <div className="prose max-w-none text-gray-800 mb-4 space-y-2">
+                    {summary.split('\n').map((line, idx) => (
+                      <div key={idx}>
+                        <MathJax inline dynamic>{line}</MathJax>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">Домашка:</h4>
+                    <ul className="list-disc list-inside text-gray-700">
+                      {hw.map((task, idx) => (
+                        <li key={idx}>{task}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </MathJaxContext>
   );
 };
 
